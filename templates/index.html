@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deep Focus</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+</head>
+<body>
+    <div class="notebook">
+        <div class="page">
+            <h1>Mi Planificador</h1>
+
+            <h2>Notas</h2>
+            <form action="/add_note" method="post">
+                <input type="text" name="title" placeholder="Título">
+                <textarea name="content" placeholder="Contenido"></textarea>
+                <button type="submit">Agregar nota</button>
+            </form>
+            {% for note in notes %}
+                <div>
+                    <h3>{{ note.title }}</h3>
+                    <p>{{ note.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="page">
+            <h2>Tareas</h2>
+            <form action="/add_task" method="post">
+                <input type="text" name="title" placeholder="Título">
+                <textarea name="content" placeholder="Contenido"></textarea>
+                <button type="submit">Agregar tarea</button>
+            </form>
+            {% for task in tasks %}
+                <div>
+                    <h3>{{ task.title }}</h3>
+                    <p>{{ task.content }}</p>
+                    {% if not task.completed %}
+                        <a href="/complete_task/{{ task.title }}">Marcar como completada</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <h2>Eventos</h2>
+            <form action="/add_event" method="post">
+                <input type="text" name="title" placeholder="Título">
+                <textarea name="content" placeholder="Contenido"></textarea>
+                <input type="datetime-local" name="start_time">
+                <input type="datetime-local" name="end_time">
+                <button type="submit">Agregar evento</button>
+            </form>
+            {% for event in events %}
+                <div>
+                    <h3>{{ event.title }}</h3>
+                    <p>{{ event.content }}</p>
+                    <p>Inicio: {{ event.start_time }}</p>
+                    <p>Fin: {{ event.end_time }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
